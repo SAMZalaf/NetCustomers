@@ -12,8 +12,10 @@ import { useCustomers } from '../contexts/CustomerContext';
 import * as Storage from '../utils/storage';
 import * as GoogleDrive from '../utils/googleDrive';
 import { exportToExcel } from '../utils/excel';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SettingsScreen() {
+  const navigation = useNavigation();
   const { theme: colors } = useTheme();
   const { t, language, setLanguage, isRTL } = useLanguage();
   const { themeMode, setThemeMode } = useThemeContext();
@@ -237,6 +239,8 @@ export default function SettingsScreen() {
           t('dataManagement'),
           <>
             {renderOption('download', t('exportToExcel'), handleExport)}
+            <View style={[styles.divider, { backgroundColor: colors.border }]} />
+            {renderOption('sliders', t('manageFields'), () => (navigation as any).navigate('FieldSettings' as never))}
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             {renderOption('trash-2', t('clearAllData'), handleClearData, undefined, true)}
           </>

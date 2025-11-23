@@ -7,13 +7,14 @@ import { useTheme } from '@/hooks/useTheme';
 import { useLanguage } from '@/contexts/LanguageContext';
 import CustomersScreen from '@/screens/CustomersScreen';
 import AddCustomerScreen from '@/screens/AddCustomerScreen';
-import SettingsScreen from '@/screens/SettingsScreen';
+import SettingsStackNavigator from '@/navigation/SettingsStackNavigator';
 import { HeaderTitle } from '@/components/HeaderTitle';
 
 export type MainTabParamList = {
   Customers: undefined;
   AddCustomer: { customer?: any };
   Settings: undefined;
+  FieldSettings: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -73,9 +74,9 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingsStackNavigator}
         options={{
-          title: t('settings'),
+          headerShown: false,
           tabBarLabel: t('settings'),
           tabBarIcon: ({ color, size }) => <Feather name="settings" size={size} color={color} />,
         }}

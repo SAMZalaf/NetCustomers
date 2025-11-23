@@ -1,30 +1,47 @@
 import { Platform } from "react-native";
 
-const tintColorLight = "#007AFF";
-const tintColorDark = "#0A84FF";
-
 export const Colors = {
   light: {
-    text: "#11181C",
+    primary: "#2196F3",
+    primaryContainer: "#E3F2FD",
+    secondary: "#4CAF50",
+    error: "#F44336",
+    background: "#FFFFFF",
+    surface: "#F5F5F5",
+    surfaceVariant: "#EEEEEE",
+    onSurface: "#212121",
+    onSurfaceVariant: "#757575",
+    text: "#212121",
     buttonText: "#FFFFFF",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
-    link: "#007AFF",
-    backgroundRoot: "#FFFFFF", // Elevation 0
-    backgroundDefault: "#F2F2F2", // Elevation 1
-    backgroundSecondary: "#E6E6E6", // Elevation 2
-    backgroundTertiary: "#D9D9D9", // Elevation 3
+    tabIconDefault: "#757575",
+    tabIconSelected: "#2196F3",
+    link: "#2196F3",
+    backgroundRoot: "#FFFFFF",
+    backgroundDefault: "#F5F5F5",
+    backgroundSecondary: "#EEEEEE",
+    backgroundTertiary: "#E0E0E0",
+    border: "#E0E0E0",
   },
   dark: {
-    text: "#ECEDEE",
+    primary: "#90CAF9",
+    primaryContainer: "#1565C0",
+    secondary: "#81C784",
+    error: "#EF5350",
+    background: "#121212",
+    surface: "#1E1E1E",
+    surfaceVariant: "#2C2C2C",
+    onSurface: "#E0E0E0",
+    onSurfaceVariant: "#BDBDBD",
+    text: "#E0E0E0",
     buttonText: "#FFFFFF",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
-    link: "#0A84FF",
-    backgroundRoot: "#1F2123", // Elevation 0
-    backgroundDefault: "#2A2C2E", // Elevation 1
-    backgroundSecondary: "#353739", // Elevation 2
-    backgroundTertiary: "#404244", // Elevation 3
+    tabIconDefault: "#BDBDBD",
+    tabIconSelected: "#90CAF9",
+    link: "#90CAF9",
+    backgroundRoot: "#121212",
+    backgroundDefault: "#1E1E1E",
+    backgroundSecondary: "#2C2C2C",
+    backgroundTertiary: "#383838",
+    border: "#2C2C2C",
   },
 };
 
@@ -33,23 +50,18 @@ export const Spacing = {
   sm: 8,
   md: 12,
   lg: 16,
-  xl: 20,
-  "2xl": 24,
-  "3xl": 32,
-  "4xl": 40,
-  "5xl": 48,
-  inputHeight: 48,
-  buttonHeight: 52,
+  xl: 24,
+  xxl: 32,
+  inputHeight: 56,
+  buttonHeight: 48,
 };
 
 export const BorderRadius = {
-  xs: 8,
-  sm: 12,
-  md: 18,
-  lg: 24,
-  xl: 30,
-  "2xl": 40,
-  "3xl": 50,
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
   full: 9999,
 };
 

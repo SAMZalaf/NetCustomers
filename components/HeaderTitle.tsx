@@ -1,31 +1,30 @@
-import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import React from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { ThemedText } from '@/components/ThemedText';
+import { Spacing } from '@/constants/theme';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-import { ThemedText } from "@/components/ThemedText";
-import { Spacing } from "@/constants/theme";
-
-interface HeaderTitleProps {
-  title: string;
-}
-
-export function HeaderTitle({ title }: HeaderTitleProps) {
+export function HeaderTitle() {
+  const { language } = useLanguage();
+  const appName = language === 'ar' ? 'عملاء الإنترنت' : 'Internet Customers';
+  
   return (
     <View style={styles.container}>
       <Image
-        source={require("../assets/images/icon.png")}
+        source={require('../assets/images/icon.png')}
         style={styles.icon}
         resizeMode="contain"
       />
-      <ThemedText style={styles.title}>{title}</ThemedText>
+      <ThemedText style={styles.title}>{appName}</ThemedText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   icon: {
     width: 28,
@@ -34,6 +33,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });

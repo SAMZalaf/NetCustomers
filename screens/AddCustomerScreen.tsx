@@ -15,7 +15,7 @@ export default function AddCustomerScreen() {
   const { theme: colors } = useTheme();
   const navigation = useNavigation();
   const route = useRoute();
-  const { addCustomer, updateCustomer, fields } = useCustomers();
+  const { addCustomer, updateCustomer, fields, customers } = useCustomers();
   const { t, isRTL } = useLanguage();
   
   const existingCustomer = (route.params as any)?.customer as Customer | undefined;
@@ -28,10 +28,10 @@ export default function AddCustomerScreen() {
     if (existingCustomer) {
       setFormData(existingCustomer);
     } else {
-      const nextSerial = (Date.now() % 100000).toString().padStart(5, '0');
+      const nextSerial = (customers.length + 1).toString();
       setFormData({ serialNumber: nextSerial });
     }
-  }, [existingCustomer]);
+  }, [existingCustomer, customers.length]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -65,6 +65,7 @@ export default function AddCustomerScreen() {
 
   const renderField = (fieldKey: string, labelKey: string, type: string, required: boolean) => {
     const isPassword = type === 'password';
+    const isSerialNumber = fieldKey === 'serialNumber';
     const value = formData[fieldKey] || '';
     const showPassword = showPasswords[fieldKey] || false;
 
@@ -78,6 +79,7 @@ export default function AddCustomerScreen() {
           style={[
             styles.inputContainer,
             { backgroundColor: colors.surface, borderColor: colors.border },
+            isSerialNumber && { backgroundColor: colors.backgroundSecondary },
           ]}
         >
           <TextInput
@@ -87,11 +89,12 @@ export default function AddCustomerScreen() {
               isPassword && !showPassword && styles.passwordInput,
             ]}
             value={value}
-            onChangeText={(text: string) => setFormData({ ...formData, [fieldKey]: text })}
+            onChangeText={(text: string) => !isSerialNumber && setFormData({ ...formData, [fieldKey]: text })}
             secureTextEntry={isPassword && !showPassword}
             keyboardType={type === 'ip' ? 'numbers-and-punctuation' : 'default'}
             placeholder={t(labelKey)}
             placeholderTextColor={colors.onSurfaceVariant}
+            editable={!isSerialNumber}
           />
           {isPassword && (
             <Pressable

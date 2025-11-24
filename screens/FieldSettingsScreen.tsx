@@ -237,14 +237,23 @@ export default function FieldSettingsScreen() {
       </ScreenScrollView>
 
       <View style={[styles.footer, { backgroundColor: colors.backgroundRoot, borderTopColor: colors.border }]}>
-        <Pressable
-          style={[styles.saveButton, { backgroundColor: colors.primary }]}
-          onPress={saveChanges}
-        >
-          <ThemedText style={[styles.saveButtonText, { color: colors.buttonText }]}>
-            {t('save')}
-          </ThemedText>
-        </Pressable>
+        <View style={styles.footerButtons}>
+          <Pressable
+            style={[styles.backButton, { borderColor: colors.border }]}
+            onPress={() => navigation.goBack()}
+          >
+            <Feather name={isRTL ? 'chevron-right' : 'chevron-left'} size={20} color={colors.text} />
+            <ThemedText style={styles.backButtonText}>{t('cancel')}</ThemedText>
+          </Pressable>
+          <Pressable
+            style={[styles.saveButton, { backgroundColor: colors.primary }]}
+            onPress={saveChanges}
+          >
+            <ThemedText style={[styles.saveButtonText, { color: colors.buttonText }]}>
+              {t('save')}
+            </ThemedText>
+          </Pressable>
+        </View>
       </View>
     </ThemedView>
   );
@@ -256,7 +265,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.lg,
-    paddingBottom: 160,
+    paddingBottom: 200,
   },
   description: {
     fontSize: 14,
@@ -360,14 +369,33 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.xl + Spacing.lg,
     borderTopWidth: 1,
   },
+  footerButtons: {
+    flexDirection: 'row',
+    gap: Spacing.md,
+  },
+  backButton: {
+    flex: 0.4,
+    height: 44,
+    borderRadius: BorderRadius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: Spacing.xs,
+    borderWidth: 1,
+  },
+  backButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
   saveButton: {
-    height: Spacing.buttonHeight,
+    flex: 0.6,
+    height: 44,
     borderRadius: BorderRadius.sm,
     alignItems: 'center',
     justifyContent: 'center',
   },
   saveButtonText: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
   },
 });

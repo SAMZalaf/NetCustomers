@@ -79,6 +79,29 @@ export default function SettingsScreen() {
     ]);
   };
 
+  const handleDisconnectGoogleDrive = () => {
+    Alert.alert(
+      'Google Drive',
+      'هل تريد قطع الاتصال مع حسابك على Google Drive؟ يمكنك إعادة الاتصال في أي وقت.',
+      [
+        { text: 'إلغاء', style: 'cancel' },
+        {
+          text: 'قطع الاتصال',
+          style: 'destructive',
+          onPress: async () => {
+            const settings = await Storage.getSyncSettings();
+            await Storage.saveSyncSettings({
+              ...settings,
+              lastSyncTime: null,
+              googleDriveFileId: null,
+            });
+            Alert.alert('تم', 'تم قطع الاتصال مع Google Drive بنجاح');
+          },
+        },
+      ]
+    );
+  };
+
   const formatDate = (dateString: string | null) => {
     if (!dateString) return t('notConnected');
     try {
@@ -213,7 +236,7 @@ export default function SettingsScreen() {
               ) : undefined
             )}
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
-            <View style={[styles.option, { borderBottomWidth: 0 }]}>
+            <View style={styles.option}>
               <View style={styles.optionLeft}>
                 <Feather name="repeat" size={20} color={colors.onSurfaceVariant} />
                 <View>
@@ -230,6 +253,14 @@ export default function SettingsScreen() {
                 thumbColor={colors.background}
               />
             </View>
+            <View style={[styles.divider, { backgroundColor: colors.border }]} />
+            {renderOption(
+              'log-out',
+              'قطع الاتصال',
+              handleDisconnectGoogleDrive,
+              undefined,
+              true
+            )}
           </>
         )}
 
@@ -262,6 +293,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.lg,
+    paddingBottom: Spacing.xl * 2,
   },
   section: {
     marginBottom: Spacing.xl,

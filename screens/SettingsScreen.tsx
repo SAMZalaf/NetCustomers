@@ -82,11 +82,11 @@ export default function SettingsScreen() {
   const handleDisconnectGoogleDrive = () => {
     Alert.alert(
       'Google Drive',
-      'هل تريد قطع الاتصال مع حسابك على Google Drive؟ يمكنك إعادة الاتصال في أي وقت.',
+      t('disconnectGoogle'),
       [
-        { text: 'إلغاء', style: 'cancel' },
+        { text: t('cancel'), style: 'cancel' },
         {
-          text: 'قطع الاتصال',
+          text: t('disconnectConfirm'),
           style: 'destructive',
           onPress: async () => {
             const settings = await Storage.getSyncSettings();
@@ -95,7 +95,7 @@ export default function SettingsScreen() {
               lastSyncTime: null,
               googleDriveFileId: null,
             });
-            Alert.alert('تم', 'تم قطع الاتصال مع Google Drive بنجاح');
+            Alert.alert(t('success'), t('disconnected'));
           },
         },
       ]
@@ -256,7 +256,7 @@ export default function SettingsScreen() {
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             {renderOption(
               'log-out',
-              'قطع الاتصال',
+              t('disconnect'),
               handleDisconnectGoogleDrive,
               undefined,
               true

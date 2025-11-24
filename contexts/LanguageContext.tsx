@@ -89,6 +89,10 @@ const translations = {
     moveUp: 'تحريك لأعلى',
     moveDown: 'تحريك لأسفل',
     allDataCleared: 'تم حذف جميع البيانات',
+    disconnect: 'قطع الاتصال',
+    disconnectGoogle: 'هل تريد قطع الاتصال مع حسابك على Google Drive؟ يمكنك إعادة الاتصال في أي وقت.',
+    disconnectConfirm: 'قطع الاتصال',
+    disconnected: 'تم قطع الاتصال مع Google Drive بنجاح',
   },
   en: {
     customers: 'Customers',
@@ -167,6 +171,10 @@ const translations = {
     moveUp: 'Move Up',
     moveDown: 'Move Down',
     allDataCleared: 'All data cleared',
+    disconnect: 'Disconnect',
+    disconnectGoogle: 'Do you want to disconnect from your Google Drive account? You can reconnect anytime.',
+    disconnectConfirm: 'Disconnect',
+    disconnected: 'Disconnected from Google Drive successfully',
   },
 };
 

@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: Spacing.lg,
-    paddingBottom: Spacing.xl + Spacing.lg,
+    paddingBottom: Spacing.xl + Spacing.lg + 40,
     borderTopWidth: 1,
   },
   footerButtons: {

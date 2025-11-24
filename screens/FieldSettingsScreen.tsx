@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: Spacing.lg,
-    paddingBottom: 100,
+    paddingBottom: 160,
   },
   description: {
     fontSize: 14,
@@ -357,6 +357,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: Spacing.lg,
+    paddingBottom: Spacing.xl + Spacing.lg,
     borderTopWidth: 1,
   },
   saveButton: {

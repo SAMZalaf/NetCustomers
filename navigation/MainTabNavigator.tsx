@@ -27,14 +27,11 @@ export default function MainTabNavigator() {
     <Tab.Navigator
       initialRouteName="Customers"
       screenOptions={{
-        tabBarActiveTintColor: theme.tabIconSelected,
-        tabBarInactiveTintColor: theme.tabIconDefault,
+        tabBarActiveTintColor: theme.tabBarText,
+        tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.6)',
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: Platform.select({
-            ios: 'transparent',
-            android: theme.backgroundRoot,
-          }),
+          backgroundColor: theme.tabBarBackground,
           borderTopWidth: 0,
           elevation: 0,
         },
@@ -42,7 +39,7 @@ export default function MainTabNavigator() {
           Platform.OS === 'ios' ? (
             <BlurView
               intensity={100}
-              tint={isDark ? 'dark' : 'light'}
+              tint="dark"
               style={StyleSheet.absoluteFill}
             />
           ) : null,

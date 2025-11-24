@@ -13,6 +13,7 @@ import * as Storage from '../utils/storage';
 import * as GoogleDrive from '../utils/googleDrive';
 import { exportToExcel } from '../utils/excel';
 import { useNavigation } from '@react-navigation/native';
+import { useSync } from '../contexts/SyncContext';
 
 export default function SettingsScreen() {
   const navigation = useNavigation();
@@ -20,18 +21,16 @@ export default function SettingsScreen() {
   const { t, language, setLanguage, isRTL } = useLanguage();
   const { themeMode, setThemeMode } = useThemeContext();
   const { customers, clearAllCustomers, fields } = useCustomers();
+  const { isSyncing, manualSync, lastSyncTime, syncError } = useSync();
   const [autoSync, setAutoSync] = useState(false);
-  const [lastSync, setLastSync] = useState<string | null>(null);
-  const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
     loadSyncSettings();
-  }, []);
+  }, [lastSyncTime]);
 
   const loadSyncSettings = async () => {
     const settings = await Storage.getSyncSettings();
     setAutoSync(settings.autoSync);
-    setLastSync(settings.lastSyncTime);
   };
 
   const handleThemeChange = async (mode: 'light' | 'dark' | 'system') => {
@@ -49,16 +48,11 @@ export default function SettingsScreen() {
   };
 
   const handleManualSync = async () => {
-    setSyncing(true);
-    const success = await GoogleDrive.syncToGoogleDrive(customers);
-    setSyncing(false);
-    
-    if (success) {
-      const settings = await Storage.getSyncSettings();
-      setLastSync(settings.lastSyncTime);
-      Alert.alert(t('success'), t('syncSuccess'));
+    await manualSync();
+    if (syncError) {
+      Alert.alert(t('error'), syncError);
     } else {
-      Alert.alert(t('error'), t('syncError'));
+      Alert.alert(t('success'), t('syncSuccess'));
     }
   };
 
@@ -87,8 +81,12 @@ export default function SettingsScreen() {
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return t('notConnected');
-    const date = new Date(dateString);
-    return date.toLocaleString(language === 'ar' ? 'ar-SA' : 'en-US');
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleString(language === 'ar' ? 'ar-SA' : 'en-US');
+    } catch {
+      return t('notConnected');
+    }
   };
 
   const renderSection = (title: string, children: React.ReactNode) => (
@@ -203,14 +201,14 @@ export default function SettingsScreen() {
               <ThemedText style={[styles.syncLabel, { color: colors.onSurfaceVariant }]}>
                 {t('lastSync')}
               </ThemedText>
-              <ThemedText style={styles.syncTime}>{formatDate(lastSync)}</ThemedText>
+              <ThemedText style={styles.syncTime}>{formatDate(lastSyncTime)}</ThemedText>
             </View>
             <View style={[styles.divider, { backgroundColor: colors.border }]} />
             {renderOption(
               'refresh-cw',
-              syncing ? t('syncing') : t('sync'),
+              isSyncing ? t('syncing') : t('sync'),
               handleManualSync,
-              syncing ? (
+              isSyncing ? (
                 <View style={styles.syncingIndicator} />
               ) : undefined
             )}

@@ -10,6 +10,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { CustomerProvider } from '@/contexts/CustomerContext';
+import { SyncProvider } from '@/contexts/SyncContext';
 
 export default function App() {
   return (
@@ -20,10 +21,12 @@ export default function App() {
             <LanguageProvider>
               <ThemeProvider>
                 <CustomerProvider>
-                  <NavigationContainer>
-                    <MainTabNavigator />
-                  </NavigationContainer>
-                  <StatusBar style="auto" />
+                  <SyncProvider>
+                    <NavigationContainer>
+                      <MainTabNavigator />
+                    </NavigationContainer>
+                    <StatusBar style="auto" />
+                  </SyncProvider>
                 </CustomerProvider>
               </ThemeProvider>
             </LanguageProvider>
